@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wikipedia to HTML Converter</title>
+  <style>
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOTk6OThhvA.woff) format('woff');
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-size: 14px !important;
+      font-weight: unset;
+      font-family: 'Jetbrains mono', monospace;
+    }
+
+    body {
+      font-size: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 1em;
+      margin: 0 auto;
+      color: black;
+      background-color: white;
+    }
+
+    .container {
+      border-radius: 8px;
+      max-width: 80ch;
+    }
+
+    h1 {
+      margin-bottom: 1em;
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .input-group {
+      margin-bottom: 1em;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: .5em;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #0645ad;
+    }
+
+    button {
+      border: 1px solid black;
+      background-color: white;
+      padding: .5em .8em;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 500;
+      transform: translateY(-1px);
+      box-shadow: 0 1px 0 0 black;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 0 0 black;
+    }
+
+    button:active {
+      transform: translateY(0);
+      background-color: lightgray;
+      box-shadow: none;
+    }
+
+    button:disabled {
+      color: inherit;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 1em;
+      padding: .5em .8em;
+      border-radius: .5em;
+      display: none;
+    }
+
+    .status.info {
+      background: #29ADFF;
+      color: #1D2B53;
+      display: block;
+    }
+
+    .status.success {
+      background: #00E756;
+      color: #008751;
+      display: block;
+    }
+
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+      display: block;
+    }
+
+    .actions {
+      margin-top: 1em;
+      display: none;
+    }
+
+    .actions.visible {
+      display: flex;
+      gap: 12px;
+    }
+
+    .preview {
+      margin-top: 1em;
+      padding-top: 1em;
+      border-top: 1px solid #eee;
+      display: none;
+    }
+
+    .preview.visible {
+      display: block;
+    }
+
+    .preview iframe {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ddd;
+    }
+
+    .instructions {
+      background: #C2C3C7;
+      color: black;
+      padding: .75em;
+      border-left: 4px solid #1D2B53;
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Wikipedia to HTML Converter</h1>
+
+    <div class="instructions">
+      <strong>How to use:</strong> Paste any Wikipedia article URL below. The tool will extract a clean, semantic HTML
+      starter with images, footnotes, and references removed.
+    </div>
+
+    <div class="input-group">
+      <label for="wiki-url">Wikipedia Article URL:</label>
+      <input type="text" id="wiki-url" placeholder="https://en.wikipedia.org/wiki/Pickling"
+        value="https://en.wikipedia.org/wiki/Pickling">
+    </div>
+
+    <button id="extract-btn" onclick="extractArticle()">Convert</button>
+
+    <div id="status" class="status"></div>
+
+    <div id="actions" class="actions">
+      <button onclick="downloadHTML()">Download HTML</button>
+      <button onclick="copyToClipboard()">Copy HTML</button>
+    </div>
+
+    <div id="preview" class="preview">
+      <h2>Preview:</h2>
+      <iframe id="preview-frame"></iframe>
+    </div>
+  </div>
+
+  <script>
+    let cleanedHTML = '';
+
+    function showStatus(message, type) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `status ${type}`;
+    }
+
+    // Extract language and article title from Wikipedia URL
+    function extractArticleInfo(url) {
+      const match = url.match(/https?:\/\/([a-z]{2,3})\.wikipedia\.org\/wiki\/([^#?]+)/);
+      if (!match) {
+        throw new Error('Invalid Wikipedia URL. Expected format: https://en.wikipedia.org/wiki/Article_Title');
+      }
+      return {
+        language: match[1],  // e.g. 'en', 'nl', 'de'
+        title: match[2]      // e.g. 'Pickling'
+      };
+    }
+
+    // Fetch article from Wikipedia REST API
+    async function fetchArticle(language, title) {
+      const apiUrl = `https://${language}.wikipedia.org/api/rest_v1/page/html/${title}`;
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch article: ${response.status} ${response.statusText}`);
+      }
+
+      return await response.text();
+    }
+
+    // Convert divs to semantic section elements where appropriate
+    function convertToSemanticHTML(element) {
+      if (element.tagName === 'DIV') {
+        const hasHeading = element.querySelector('h1, h2, h3, h4, h5, h6');
+        if (hasHeading) {
+          const section = document.createElement('section');
+          section.innerHTML = element.innerHTML;
+          element.replaceWith(section);
+          element = section;
+        }
+      }
+      Array.from(element.children).forEach(child => convertToSemanticHTML(child));
+    }
+
+    // Clean up HTML: remove all Wikipedia-specific elements and attributes
+    function cleanupHTML(html, articleTitle, language) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // 1. Remove all images, figures and media
+      doc.querySelectorAll('img, figure, picture, video, audio').forEach(el => el.remove());
+
+      // 2. Remove all footnotes and reference links (superscripts)
+      doc.querySelectorAll('sup, .mw-ref, .reference').forEach(el => el.remove());
+
+      // 3. Remove everything after "See also" section
+      let foundSeeAlso = false;
+      Array.from(doc.querySelectorAll('section')).forEach(section => {
+        const heading = section.querySelector('h1, h2, h3, h4, h5, h6');
+        if (heading) {
+          const headingText = heading.textContent.trim().toLowerCase();
+          if (headingText === 'see also' || headingText === 'zie ook' ||
+            headingText === 'siehe auch' || headingText === 'voir aussi') {
+            foundSeeAlso = true;
+          }
+          if (foundSeeAlso) {
+            section.remove();
+          }
+        }
+      });
+
+      // 4. Remove Wikipedia UI elements (edit buttons, infoboxes, etc.)
+      doc.querySelectorAll('.mw-editsection, #toc, .navbox, .ambox, .metadata, .infobox, .mw-page-title-main, .shortdescription').forEach(el => el.remove());
+
+      // 5. Remove short description divs
+      doc.querySelectorAll('section').forEach(section => {
+        const divs = section.querySelectorAll('div');
+        divs.forEach(div => {
+          const text = div.textContent.trim();
+          const hasLinks = div.querySelector('a');
+          // Remove if: short text (<80 chars), no links
+          if (text.length > 0 && text.length < 80 && !hasLinks) {
+            div.remove();
+          }
+        });
+      });
+
+      // 6. Remove reference lists
+      doc.querySelectorAll('.reflist, .references, .refbegin').forEach(el => el.remove());
+
+      // 7. Convert relative Wikipedia links to absolute URLs
+      doc.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('./')) {
+          link.setAttribute('href', `https://${language}.wikipedia.org/wiki/${href.substring(2)}`);
+        } else if (href && href.startsWith('/wiki/')) {
+          link.setAttribute('href', `https://${language}.wikipedia.org${href}`);
+        } else if (href && href.startsWith('/')) {
+          link.setAttribute('href', `https://${language}.wikipedia.org${href}`);
+        }
+      });
+
+      // 8. Remove spans (keep text content)
+      doc.querySelectorAll('span').forEach(span => {
+        const text = document.createTextNode(span.textContent);
+        span.replaceWith(text);
+      });
+
+      // 8b. Convert <b> to <strong> and <i> to <em> for semantic HTML
+      doc.querySelectorAll('b').forEach(b => {
+        const strong = doc.createElement('strong');
+        strong.innerHTML = b.innerHTML;
+        b.replaceWith(strong);
+      });
+      doc.querySelectorAll('i').forEach(i => {
+        const em = doc.createElement('em');
+        em.innerHTML = i.innerHTML;
+        i.replaceWith(em);
+      });
+
+      // 9. Remove empty and useless elements
+      doc.querySelectorAll('link, meta, script, style').forEach(el => el.remove());
+      doc.querySelectorAll('p, section, div, ul, ol, li').forEach(el => {
+        if (el.textContent.trim() === '') {
+          el.remove();
+        }
+      });
+
+      // 10. Convert divs to semantic sections
+      convertToSemanticHTML(doc.body);
+
+      // 11. Add IDs to sections based on heading text
+      let firstSection = true;
+      doc.querySelectorAll('section').forEach(section => {
+        const heading = section.querySelector('h1, h2, h3, h4, h5, h6');
+        if (heading) {
+          // Create a slug from the heading text (e.g. "Ancient history" → "ancient-history")
+          const id = heading.textContent.trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')   // Remove special chars
+            .replace(/\s+/g, '-')           // Replace spaces with hyphens
+            .replace(/-+/g, '-')            // Replace multiple hyphens with single
+            .replace(/^-|-$/g, '');         // Remove leading/trailing hyphens
+          if (id) {
+            section.setAttribute('id', id);
+          }
+        } else if (firstSection) {
+          // First section without heading is the introduction
+          section.setAttribute('id', 'introduction');
+          firstSection = false;
+        }
+      });
+
+      // 12. Remove ALL attributes except href on links and id on sections
+      function stripAttributesExceptSpecial(element) {
+        if (element.tagName === 'A') {
+          const href = element.getAttribute('href');
+          while (element.attributes.length > 0) {
+            element.removeAttribute(element.attributes[0].name);
+          }
+          if (href) element.setAttribute('href', href);
+        } else if (element.tagName === 'SECTION') {
+          const id = element.getAttribute('id');
+          while (element.attributes.length > 0) {
+            element.removeAttribute(element.attributes[0].name);
+          }
+          if (id) element.setAttribute('id', id);
+        } else {
+          while (element.attributes.length > 0) {
+            element.removeAttribute(element.attributes[0].name);
+          }
+        }
+        Array.from(element.children).forEach(child => stripAttributesExceptSpecial(child));
+      }
+      stripAttributesExceptSpecial(doc.body);
+
+      // 13. Get clean body HTML
+      let bodyHTML = doc.body.innerHTML;
+
+      // 14. Remove remaining inline styles and attributes (except id and href)
+      bodyHTML = bodyHTML.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+      bodyHTML = bodyHTML.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+      bodyHTML = bodyHTML.replace(/\sstyle="[^"]*"/g, '');
+      bodyHTML = bodyHTML.replace(/\sclass="[^"]*"/g, '');
+      bodyHTML = bodyHTML.replace(/\sdata-[^=]*="[^"]*"/g, '');
+
+      // 15. Create readable title (replace underscores with spaces)
+      const readableTitle = decodeURIComponent(articleTitle).replace(/_/g, ' ');
+
+      // 16. Generate final HTML document
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${readableTitle}</title>
+</head>
+<body>
+<article>
+<header>
+<h1>${readableTitle}</h1>
+<p><small>From Wikipedia, the free encyclopedia</small></p>
+</header>
+${bodyHTML}
+</article>
+</body>
+</html>`;
+    }
+
+    // Main function: fetch article and extract clean HTML
+    async function extractArticle() {
+      const urlInput = document.getElementById('wiki-url');
+      const extractBtn = document.getElementById('extract-btn');
+      const actions = document.getElementById('actions');
+      const preview = document.getElementById('preview');
+
+      try {
+        extractBtn.disabled = true;
+        showStatus('Extracting article info...', 'info');
+
+        const articleInfo = extractArticleInfo(urlInput.value);
+        showStatus(`Fetching "${decodeURIComponent(articleInfo.title)}" from ${articleInfo.language}.wikipedia.org...`, 'info');
+
+        const html = await fetchArticle(articleInfo.language, articleInfo.title);
+        showStatus('Processing HTML...', 'info');
+
+        cleanedHTML = cleanupHTML(html, articleInfo.title, articleInfo.language);
+
+        showStatus('✓ Done! HTML extracted successfully.', 'success');
+        actions.classList.add('visible');
+        preview.classList.add('visible');
+
+        // Show preview
+        const iframe = document.getElementById('preview-frame');
+        iframe.srcdoc = cleanedHTML;
+
+      } catch (error) {
+        showStatus(`Error: ${error.message}`, 'error');
+        actions.classList.remove('visible');
+        preview.classList.remove('visible');
+      } finally {
+        extractBtn.disabled = false;
+      }
+    }
+
+    // Download the clean HTML as a file
+    function downloadHTML() {
+      const blob = new Blob([cleanedHTML], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'wikipedia-article.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showStatus('✓ HTML file downloaded!', 'success');
+    }
+
+    // Copy HTML to clipboard
+    async function copyToClipboard() {
+      try {
+        await navigator.clipboard.writeText(cleanedHTML);
+        showStatus('✓ HTML copied to clipboard!', 'success');
+      } catch (error) {
+        showStatus('Failed to copy to clipboard', 'error');
+      }
+    }
+
+    // Enter key triggers the extract function
+    document.getElementById('wiki-url').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        extractArticle();
+      }
+    });
+  </script>
+</body>
+
+</html>

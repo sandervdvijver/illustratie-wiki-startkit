@@ -1,0 +1,14 @@
+{
+  "name": "wikipedia-cleaner",
+  "version": "1.0.0",
+  "description": "Clean semantic HTML extractor for Wikipedia articles",
+  "main": "cleanup-wikipedia.js",
+  "scripts": {
+    "clean": "node cleanup-wikipedia.js"
+  },
+  "dependencies": {
+    "jsdom": "^24.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+}
