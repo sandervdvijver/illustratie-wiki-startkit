@@ -3,7 +3,7 @@
 De structuur van het HTML-bestand dat je net hebt gemaakt met de Wikipedia converter tool is een ideale introductie in hoe HTML in elkaar zit.
 Open je `index.html` in je code editor en lees mee.
 
-## De basisstructuur
+## De openingsregels
 
 Bekijk de eerste regels:
 
@@ -16,22 +16,43 @@ Bekijk de eerste regels:
     <title>Pickling</title>
   </head>
   <body>
-    […]
+    …
   </body>
 </html>
 ```
 
 **Wat je hier ziet:**
 
-- `<!DOCTYPE html>` - Vertelt de browser: dit is een HTML5 document
-- `<html>` - Het root element, omvat alles
-- `<head>` - Metadata (niet zichtbaar op de pagina zelf)
-- `<title>` - De paginatitel
-- `<strongody>` - Alles wat je ziet op de pagina staat hier
+- `<!DOCTYPE html>` - Vertelt de browser: dit is een HTML document
+- `<html>` - Het mama-element, omvat alles
+- `<head>` - Omvat metadata: niet zichtbaar in je browser, wordt elders gebruikt 
+  - `<title>` - De paginatitel
+- `<body>` - Het omvattende element voor alle HTML die in je browser 'zichtbaar' is.
+
+## De structuur van HTML
+
+In HTML is alles opgemaakt met elementen of tags. Tags bevatten andere tags, die op hun beurt weer andere bevatten. Ruwe HTML is dan ook structuur in zijn puurste vorm.
+
+Scroll door je `index.html` en kijk of je de structuur van je wikipedia-artikel kan herkennen.
+
+```html
+<html>
+  <head>
+    <meta>
+    …
+    <title>
+  </head>
+  <body>
+    <article>
+      …
+    </article>
+  </body>
+</html>
+```
 
 ## Semantische structuur: article, header, section
 
-Scroll door je `index.html`. Je ziet dat het hele artikel ingepakt is in een `<article>` tag:
+Je ziet dat je hele artikel ingepakt is in een `<article>` tag:
 
 ```html
 <article>
@@ -51,9 +72,9 @@ Scroll door je `index.html`. Je ziet dat het hele artikel ingepakt is in een `<a
 
 **Wat betekent dit?**
 
-- `<article>` - Een zelfstandig stuk content (een artikel, blogpost, etc.)
-- `<header>` - De kop van je artikel (titel + subtitel)
-- `<section>` - Een thematische groep content, meestal met een eigen heading
+- `<article>` - De daadwerkelijke 'inhoud' van een pagina
+- `<section>` - Een sectie inhoud
+- `<h1>` - Een hoofding.
 
 Dit zijn **semantische tags** - ze geven betekenis aan de structuur, niet alleen opmaak.
 
@@ -75,9 +96,7 @@ Deze `id`'s zijn:
 - **Nuttig voor CSS** - je kan specifieke secties stylen
 - **Nuttig voor navigatie** - je kan linken naar `#introduction` bijvoorbeeld
 
-💡 **Later:** Je kan deze id's gebruiken om een inhoudsopgave te maken die naar verschillende delen van je pagina linkt.
-
-## Hoofdingen en paragrafen
+## Hoofdingen
 
 Zoek in je `index.html` naar de verschillende hoofding niveaus. Elk Wikipedia artikel heeft een vergelijkbare structuur:
 
@@ -101,7 +120,6 @@ Zoek in je `index.html` naar de verschillende hoofding niveaus. Elk Wikipedia ar
 ## Paragrafen en tekststijlen
 
 Zoek in je bestand naar een `<p>` tag. Dit element duidt op een **paragraaf** of **alinea** tekst.
-Binnen die paragrafen vind je `<strong>` en `<em>` tags, deze worden gebruikt om
 
 ```html
 <p>
@@ -139,10 +157,4 @@ Je ziet overal `<div>` tags in je document:
 <div>Further information: <a href="...">South Asian pickles</a></div>
 ```
 
-Een `<div>` is een **generieke container** zonder semantische betekenis. Het is een element dat je gebruikt om dingen te groeperen in functie van verdere CSS opmaak.
-
-**Wanneer gebruik je een div?**
-
-- Als er geen passende semantische tag is (`<section>`, `<article>`, `<header>`, etc.)
-- Voor styling doeleinden (we komen hier later op terug bij CSS)
-- Als wrapper om meerdere elementen te groeperen
+Een `<div>` is een **generieke container** zonder semantische betekenis. Het is een element dat je gebruikt om dingen te groeperen (bijvoorbeeld in functie van verdere CSS opmaak).
