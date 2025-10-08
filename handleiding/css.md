@@ -32,11 +32,11 @@ body {
 }
 ```
 
-- `h1` = **selector** (wat wil je stylen?)
+- `body` = **selector** (wat wil je stylen?)
 - `color` = **property** (welke eigenschap?)
-- `darkblue` = **value** (wat is de waarde?)
+- `blue` = **value** (wat is de waarde?)
 
-## Wat je kan aanspreken: selectors
+## CSS Selectors
 
 ### Elementen
 
@@ -46,7 +46,7 @@ p {
 }
 
 a {
-  color: blue;
+  color: red;
 }
 ```
 
@@ -93,7 +93,7 @@ De `#` voor de naam betekent "selecteer het element met dit ID."
 body {
   color: #333; /* Tekstkleur */
   font-size: 16px; /* Grootte */
-  font-family: Georgia, serif; /* Lettertype */
+  font-family: Courier,monospace; /* Lettertype */
   line-height: 1.6; /* Regelafstand */
 }
 ```
@@ -142,7 +142,7 @@ section {
 
 ```css
 article {
-  max-width: 800px; /* Nooit breder dan 800px */
+  max-width: 800px; /* Nooit breder dan 800px (maar dus wel smaller indien nodig) */
   margin: 0 auto; /* Centreer horizontaal */
   padding: 20px;
 }
@@ -173,8 +173,7 @@ Bovenaan je stylesheet:
 
 ```css
 :root {
-  --primary-color: #2c3e50;
-  --text-color: #333;
+  --kleur: #2c3e50;
   --spacing: 20px;
 }
 ```
@@ -183,11 +182,10 @@ Gebruik ze met `var()`:
 
 ```css
 body {
-  color: var(--text-color);
+  color: var(--kleur);
 }
 
 h1 {
-  color: var(--primary-color);
   margin-bottom: var(--spacing);
 }
 ```
@@ -207,16 +205,6 @@ h1 {
 
 Child elementen staan nu naast elkaar in plaats van onder elkaar.
 
-💡 **Probeer:** Maak je Gallery items naast elkaar staan:
-
-```css
-#gallery ul {
-  display: flex;
-  gap: 15px;
-  list-style: none;
-}
-```
-
 ## Grid - rijen en kolommen
 
 ```css
@@ -229,10 +217,10 @@ Child elementen staan nu naast elkaar in plaats van onder elkaar.
 
 `fr` = "fraction" (breukdeel van beschikbare ruimte)
 
-**Responsive grid:**
+**Auto grid:**
 
 ```css
-.gallery-grid {
+.auto-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
@@ -252,60 +240,3 @@ fz16   →  font-size: 16px;
 tac    →  text-align: center;
 df     →  display: flex;
 ```
-
-## Een goed startpunt
-
-Voeg dit toe aan je `style.css` als basis:
-
-```css
-:root {
-  --text-color: #333;
-  --accent-color: #2c3e50;
-  --spacing: 20px;
-}
-
-body {
-  font-family: Georgia, serif;
-  color: var(--text-color);
-  line-height: 1.6;
-  background-color: #f9f9f9;
-}
-
-article {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: var(--spacing);
-  background-color: white;
-}
-
-h1,
-h2,
-h3 {
-  color: var(--accent-color);
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-}
-
-p {
-  margin-bottom: 1em;
-}
-
-a {
-  color: var(--accent-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-```
-
-💡 **Experimenteer:** Verander de variabelen en kijk wat er gebeurt!
-
-## Developer Tools = je beste vriend
-
-1. Rechtsklik op een element → "Inspecteer"
-2. Experiment met CSS in het Styles paneel
-3. Kopieer werkende CSS naar je bestand
-
-**Tip:** Vink properties aan/uit om te zien wat ze doen!
