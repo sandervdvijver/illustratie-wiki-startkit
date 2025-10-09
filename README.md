@@ -28,8 +28,7 @@ Live Server herlaadt je browser automatisch bij elke wijziging - ideaal voor web
 
 **Prettier extensie installeren en activeren**
 
-1. Zoek in het Extensions venster naar `Prettier`
-2. Installeer
+1. Zoek in het Extensions venster naar `Prettier` en installeer
 3. Open je settings met `Ctrl + ,` (Windows) of `Cmd + ,`(Mac)
 4. Zoek naar 'format on save' en activeer de checkbox
 
