@@ -21,10 +21,19 @@ Je installeert vervolgens nog één extensie om je leven iets eenvoudiger te mak
 **Live Server extensie installeren:**
 
 1. Klik op het `Extensions` icoon in de zijbalk (of `Cmd + Shift + X`)
-2. Zoek naar `Live Server` van **Ritwick Dey**
+2. Zoek naar `Live Server` van **Ritwick Dey** en installeer
 3. Rechtsklik op `index.html` → `Open with Live Server` om te starten
 
 Live Server herlaadt je browser automatisch bij elke wijziging - ideaal voor webontwikkeling.
+
+**Prettier extensie installeren en activeren**
+
+1. Zoek in het Extensions venster naar `Prettier`
+2. Installeer
+3. Open je settings met `Ctrl + ,` (Windows) of `Cmd + ,`(Mac)
+4. Zoek naar 'format on save' en activeer de checkbox
+
+Deze extensie zet je code netjes wanneer je je bestand bewaart.
 
 ## 2. Download de startkit en zet hem klaar
 
