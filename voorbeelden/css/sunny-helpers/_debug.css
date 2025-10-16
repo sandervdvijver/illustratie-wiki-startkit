@@ -1,0 +1,69 @@
+/* Debug */
+
+.debug {
+  /* Main Layout Containers */
+  main,
+  article,
+  section,
+  header,
+  footer,
+  div {
+    --debug-color: lightblue;
+    border: 1px solid var(--debug-color);
+    padding: 16px;
+    position: relative;
+  }
+
+  *[data-debug-label] {
+    position: relative;
+  }
+
+  /* Generic element labels */
+  main::before,
+  article::before,
+  section::before,
+  header::before,
+  footer::before,
+  div::before,
+  figure::before,
+  p::before,
+  pre::before {
+    content: attr(data-debug-label);
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: white;
+    color: var(--debug-color);
+    border: 1px solid var(--debug-color);
+    border-right: none;
+    border-top: none;
+    border-radius: 0 0 0 4px;
+    font-size: 10px;
+    padding: 2px 4px;
+    line-height: 1;
+    z-index: 9999;
+  }
+
+  /* Titles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    --debug-color: cadetblue;
+    border: 1px dashed var(--debug-color);
+  }
+
+  /* Paragraphs */
+  p,
+  pre {
+    --debug-color: coral;
+    border: 1px dashed var(--debug-color);
+  }
+
+  figure {
+    --debug-color: pink;
+    border: 1px solid var(--debug-color);
+  }
+}

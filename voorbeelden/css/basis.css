@@ -1,0 +1,86 @@
+@import url("../../css/_reset.css");
+@import url("sunny-helpers/_debug.css");
+
+/* Resets */
+/* Geen top marge van de titels */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin-top: 0;
+}
+
+/* Afbeeldingen luisteren naar de mama qua breedte */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Geen marges bij het figure element */
+figure {
+  padding: 0;
+  margin: 0;
+}
+
+/* Stijlen */
+body {
+  font-family: monospace;
+  margin: 30px;
+}
+
+/* Standaard breedte voor alle kindjes van article is 600px */
+article > * {
+  max-width: 600px;
+  margin-inline: auto;
+  /* Ruimte tussen de kindjes van article behalve het laatste */
+  margin-bottom: 60px;
+}
+
+/* Andere breedtes */
+.breed {
+  max-width: 800px;
+}
+
+.breder {
+  max-width: 960px;
+}
+
+.volledige-breedte {
+  max-width: 100%;
+}
+
+/* Kolommen */
+.flex {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 820px) {
+  .flex {
+    flex-flow: column;
+  }
+}
+
+.flex.even-brede-kolommen > * {
+  flex: 1;
+}
+
+/* Flex children alignments */
+.centreer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.align-onder {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.align-rechtsboven {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}

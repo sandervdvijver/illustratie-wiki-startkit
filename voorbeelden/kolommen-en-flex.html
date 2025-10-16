@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/basis.css">
+  <script src="js/debug.js"></script>
+</head>
+
+<body>
+  <article>
+    <header>
+      <h1>Kolommen, of how I learned to stop worrying and love flexbox</h1>
+      <p>Hoe zet je beelden naast elkaar? Een van de veel voorkomende quandaries van de voorbije les(sen). Deze pagina
+        maakt je wegwijs.</p>
+      <p style="color:blue">Druk op de <kbd>d</kbd> toets op je toetsenbord om
+        <code>debug mode</code> te activeren. Zo zie je hoe deze pagina gestructureerd is!
+      </p>
+    </header>
+    <div class="breed flex">
+      <figure>
+        <img src="media/guust-f.png">
+        <figcaption>Een ondertitel</figcaption>
+      </figure>
+      <section class="tekst">
+        <h3>Kolommen met flex</h3>
+        <p>Vanaf je dingen naast elkaar wil zetten, loert <em>flex</em> om de hoek. <a
+            href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox</a> is een <em>heel ding</em> in
+          CSS en hoewel het véél kan is het best een pittig baasje.</p>
+        <p>We proberen het concreet te maken met het voorbeeld van de kolommen. Alle elementen
+          die je als 'kolom' naast elkaar wil zetten, dien je in je HTML te 'bundelen' onder 1 mama-element of
+          container. Druk op d
+          om te kijken hoe dat hier gebeurd is.
+        </p>
+        <p>Aan dit container-element moeten we vervolgens <code>display:flex</code> toekennen om er een flexbox van te
+          maken. Bijvoorbeeld met een class als:</p>
+        <pre><code>.flex {
+  display: flex;
+  gap: 20px; /* de ruimte tussen de kolommen */
+}</code></pre>
+        <p>Je merkt in dit voorbeeld dat de paragraaf de afbeelding sterk doet verkleinen. Flexbox gaat nogal 'flexibel'
+          om met de afmetingen die het toekent. Dit voelt best onintuïtief aan en passen we dan ook doorgaans aan. Zie
+          hieronder.</p>
+      </section>
+    </div>
+    <div class="breed flex even-brede-kolommen">
+      <figure>
+        <img src="media/guust-f.png">
+        <figcaption>Een ondertitel</figcaption>
+      </figure>
+      <section class="tekst">
+        <h3>Even brede kolommen met <code>flex:1</code></h3>
+        <p>Om alle kolommen in je flexbox dezelfde breedte te geven moet je de eigenschap <code>flex:1</code> toekennen
+          aan alle 'kinderen' van de flexbox.
+        </p>
+        <p>
+          Je kan dit ook in een eigen 'class' schrijven die je vervolgens in je html
+          toevoegt aan je elementen:</p>
+        <pre><code>.even-brede-kolommen > * {
+  flex: 1;
+}</code></pre>
+        <p>Deze class zegt concreet: elke 'directe afstammeling' (> *) van een element met de .flex class, krijgt flex:1
+          toegekend en gaat daardoor even veel ruimte 'claimen'.</p>
+      </section>
+    </div>
+    <div class="breed flex even-brede-kolommen">
+      <div class="centreer">
+        <figure>
+          <img src="media/guust-f.png">
+          <figcaption>Een ondertitel</figcaption>
+        </figure>
+      </div>
+      <section class="tekst">
+        <h3>Centreer de afbeelding</h3>
+        <p>Er wordt wel eens gelachen met het feit dat een van de moeilijkste dingen in CSS iets horizontaal en
+          verticaal centreren is. Hoewel het al beter is dan vroeger, is dit toch minder intuïtief dan je zou denken.
+        </p>
+        <p>Een nogal waterdichte methode om dit te doen op een 'kind' van je flexbox is de volgende eigenschappen
+          toekennen via een class:</p>
+        <pre><code>.centreer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}</code></pre>
+        <p>In feite maak je van dit element op zijn beurt een flexbox en zeg je dat alle items erin horizontaal en
+          verticaal gecentreerd moeten worden. Een beetje overkill voor de puristen, maar het meest 'solide' van alle
+          manieren.</p>
+      </section>
+    </div>
+    <div class="breed flex even-brede-kolommen">
+      <section class="tekst">
+        <h3>Andere uitlijningen</h3>
+        <p>Zo kan je ook elementen onderaan uitlijnen met volgende CSS-eigenschappen:</p>
+        <pre><code>.align-onder {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}</code></pre>
+        <p>Of rechtsboven:</p>
+        <pre><code>.align-rechtsboven {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}</code></pre>
+        <p>Hier moet nog wat vultekst komen zodat duidelijk zichtbaar is dat de afbeelding onderaan staat en niet in
+          het midden. Dus nog wat tekst om dit echt te nailen.</p>
+      </section>
+      <div class="align-onder">
+        <figure>
+          <img src="media/guust-f.png">
+        </figure>
+      </div>
+    </div>
+    <div class="breed flex even-brede-kolommen">
+      <figure>
+        <img src="media/guust-f.png" style="width:100%;" alt="">
+      </figure>
+      <section class="text">
+        <h3>Een afbeelding zijn kolom laten vullen</h3>
+        <p>Bij afbeeldingen die groot genoeg zijn, gebeurt dit automatisch. Aangezien onze Guust dat niet is, moeten we
+          hem een handje helpen.</p>
+        <p>Het is een goed idee om altijd, in elke stylesheet (dit noemen we ook wel een <em>reset</em>) volgende stijl
+          te zetten:</p>
+        <pre><code>img {
+  max-width: 100%;
+  height: auto;
+}</code></pre>
+        <p>Deze zegt: een afbeelding mag nooit breder (max-width) worden dan de volledige breedte van
+          zijn
+          container (100%).</p>
+        <p>Als je gevaarlijk wil leven, gebruik je i.p.v. <code>max-width:100;</code> <code>width:100%;</code>. Nu zal
+          je afbeelding ALTIJD 100% van de breedte van zijn container innemen, ook al is hij er van nature misschien te
+          klein voor.</p>
+        <p>Ik heb bovenstaande toegepast op de Guust hiernaast met een <code>style="width:100%"</code> attribuut op het
+          <code>img</code> element.
+        </p>
+      </section>
+    </div>
+    <section>
+      <h2>Kolommen op kleinere schermen laten inklappen</h2>
+      <p>Zoals de code er nu uitziet is alles dandy en wel op grote schermen, maar worden de kolommen wel heel krap op
+        kleinere schermen. Om dit te voorkomen kan je met een <strong>media query</strong> werken.</p>
+      <p>Dit is een manier om aan je CSS te zeggen om andere stijlen toe te passen als de afmetingen van het beeldscherm
+        kleiner (of groter) zijn dan een bepaalde waarde.</p>
+      <p>Een basic versie hiervan is:</p>
+      <pre><code>@media (max-width: 820px) {
+  .flex {
+    flex-flow: column;
+  }
+}</code></pre>
+      <p>Als je schermbreedte kleiner is dan 820px krijgt alles met de class <code>flex</code>
+        <code>flex-flow:column;</code> voor de kiezen. Dat wil zeggen dat een flexbox vanaf dan verticaal gaat 'vloeien'
+        ⬇ in plaats van het default horizontaal ⮕. Zo komen de items onderaan in plaats van naast elkaar te staan.
+      </p>
+      <p>Ik heb dit al toegepast op alle flexboxen op deze pagina, dus deze zijn gsm-proofed.</p>
+    </section>
+
+    <div class="flex breed even-brede-kolommen">
+      <section>
+        <h3>Meer dan twee kolommen</h3>
+        <p>Kan allemaal. Hoeveel elementen er directe kinderen van de flexbox zijn, bepaalt hoeveel kolommen deze gaat
+          proberen maken.</p>
+      </section>
+      <figure>
+        <img src="media/guust-f.png" alt="">
+      </figure>
+      <figure>
+        <img src="media/guust-f.png" alt="">
+      </figure>
+      <figure>
+        <img src="media/guust-f.png" alt="">
+      </figure>
+    </div>
+  </article>
+</body>
+
+</html>
+
+<style>
+</style>
