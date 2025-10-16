@@ -84,3 +84,13 @@ article > * {
   align-items: flex-start;
   justify-content: flex-end;
 }
+
+/* Code blokken en inline elementen een beetje layouten */
+pre {
+  color: rgb(140, 140, 140);
+  padding-left: 1.25ch;
+}
+
+:not(pre) > code {
+  opacity: 0.5;
+}
