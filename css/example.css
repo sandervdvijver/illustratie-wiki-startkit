@@ -1,0 +1,29 @@
+@import url(sunny-helpers/sunny.css);
+
+body {
+  font-weight: 300;
+  font-family: "Fluxisch Else", "Courier New", Courier, monospace;
+}
+
+a {
+  text-decoration: none;
+  color: red;
+  background-color: red;
+}
+
+p:hover a {
+  background-color: #f6ff00bb;
+}
+
+article > section:not(:last-child) {
+  border-bottom: 1px dashed gainsboro;
+}
+
+#history h3 {
+  background-color: white;
+  position: sticky;
+  top: 0;
+  padding-top: 1.75em;
+  padding-bottom: 0.25em;
+  margin-bottom: 0;
+}

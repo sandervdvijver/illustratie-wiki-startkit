@@ -1,0 +1,156 @@
+@import url("_fonts.css");
+
+:root {
+  --width: 500px;
+}
+
+body {
+  margin: 0;
+  letter-spacing: 0.05ch;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+article > header > *,
+article > section > * {
+  max-width: var(--width);
+  margin-inline: auto;
+}
+
+article > section {
+  padding-block: 1em;
+}
+
+/* Figures */
+figure {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+/* Captions */
+figcaption {
+  font-size: 0.8em;
+  opacity: 0.5;
+  margin-top: 0.25em;
+}
+
+/* Text align */
+.center-align {
+  text-align: center;
+}
+
+.right-align {
+  text-align: end;
+}
+
+/* Floaty element */
+.float {
+  --offset: -60px;
+  float: left;
+  margin-left: max(var(--offset), calc(-1 * (100vw - 100%) / 2));
+  padding-right: 1em;
+  padding-left: 1em;
+  padding-bottom: 0.25em;
+}
+
+.float.right {
+  float: right;
+  margin-left: unset;
+  margin-right: max(var(--offset), calc(-1 * (100vw - 100%) / 2));
+}
+
+/* Columns */
+.columns {
+  max-width: unset;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  > * {
+    max-width: var(--width);
+  }
+}
+
+/* Sticky */
+.sticky {
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
+}
+
+/* Layout align */
+.vertically-center {
+  vertical-align: middle;
+  align-self: center;
+}
+
+.horizontally-center,
+.horizontally-center * {
+  justify-self: center;
+  justify-content: center;
+}
+
+/* Full bleed */
+.full-bleed {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0 auto;
+  img {
+    width: 100%;
+    object-fit: fill;
+  }
+}
+
+/* Image filters */
+
+/* Monotone */
+.monotone {
+  --color: blue;
+  --hover-color: red;
+
+  --border-color: var(--monotone-color);
+
+  position: relative;
+  background-color: white;
+}
+
+.monotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--color);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transition: background-color 0.25s;
+}
+
+.monotone img {
+  filter: grayscale(100%);
+}
+
+.monotone:hover {
+  --color: var(--hover-color);
+}
+
+/* Crisp edges */
+.crisp-edges {
+  image-rendering: crisp-edges;
+}
+
+/* Blending modes */
+.multiply {
+  mix-blend-mode: multiply;
+}
+
+.screen {
+  mix-blend-mode: screen;
+}
