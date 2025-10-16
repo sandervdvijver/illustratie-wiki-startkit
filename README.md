@@ -29,8 +29,8 @@ Live Server herlaadt je browser automatisch bij elke wijziging - ideaal voor web
 **Prettier extensie installeren en activeren**
 
 1. Zoek in het Extensions venster naar `Prettier` en installeer
-3. Open je settings met `Ctrl + ,` (Windows) of `Cmd + ,`(Mac)
-4. Zoek naar 'format on save' en activeer de checkbox
+2. Open je settings met `Ctrl + ,` (Windows) of `Cmd + ,`(Mac)
+3. Zoek naar 'format on save' en activeer de checkbox
 
 Deze extensie zet je code netjes wanneer je je bestand bewaart.
 
@@ -54,3 +54,7 @@ In de `tools/` map vind je een tool om Wikipedia artikels om te zetten naar een 
 2. Volg de instructies op deze pagina
 3. Kopieer de resulterende html en plak deze in de lege `index.html` file in de projectmap
 4. Open vervolgens deze `index.html` in je browser. Zie hier je startpunt!
+
+# Voorbeelden
+
+Ik voegde wat voorbeelden toe: de straight-edge pagina is een soort moodboard van wat kan (work in progress), de kolommen-en-flex pagina is een deep dive in dingen in kolommen zetten. Bezoek die nu al via [volgende link](https://raw.githack.com/sandervdvijver/illustratie-wiki-startkit/main/voorbeelden/kolommen-en-flex.html).
