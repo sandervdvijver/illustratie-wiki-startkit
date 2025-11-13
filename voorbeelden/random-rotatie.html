@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <article>
+      <section class="text">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum explicabo
+          mollitia numquam optio eligendi. Illo, earum iste a rem nam, obcaecati
+          temporibus similique debitis consequatur inventore, accusantium quam
+          nobis tempora.
+        </p>
+        <p>
+          Fugit at placeat eveniet. Reiciendis libero iure repellat. Nobis
+          dolore veritatis ex, maxime perferendis tempore soluta. Laudantium,
+          non adipisci dolore aut ab quam amet nihil minima, corporis, quo
+          nesciunt quidem.
+        </p>
+        <p>
+          Aspernatur obcaecati mollitia ullam minus in doloribus non, rem
+          dolores. Delectus maiores sed quo nemo voluptatibus facere accusantium
+          est nulla aut, tempora nesciunt dolores ullam labore rem pariatur!
+          Voluptatum, voluptas.
+        </p>
+        <p>
+          Tenetur molestias delectus voluptatem quas labore voluptates
+          dignissimos? Nulla, tempora! Dicta aliquid magni suscipit voluptates
+          praesentium officia! Distinctio rem totam suscipit maiores voluptas
+          ducimus, vel et hic libero similique repellendus.
+        </p>
+        <p>
+          Eos, culpa accusamus aperiam soluta odit non in tempora assumenda
+          tenetur repellat quidem nisi dolores corrupti adipisci quis minus hic
+          rerum laborum ratione architecto. Sed consectetur tenetur illum amet
+          eum!
+        </p>
+        <p>
+          Ipsam recusandae iusto a quisquam nulla ratione accusantium nemo optio
+          repellat possimus autem perferendis, vero maiores officia eum
+          doloremque velit impedit alias, corporis voluptatum id aut dignissimos
+          fugiat vel! Molestiae.
+        </p>
+      </section>
+      <section class="grid physical-items">
+        <img src="media/ohno.png" data-weight="80" />
+        <img src="media/ohno.png" data-weight="120" class="large" />
+        <img src="media/ohno.png" data-weight="60" />
+        <img src="media/ohno.png" data-weight="90" />
+        <img src="media/ohno.png" data-weight="150" />
+        <img src="media/ohno.png" data-weight="70" />
+        <img src="media/ohno.png" data-weight="180" class="large" />
+        <img src="media/ohno.png" data-weight="100" />
+        <img src="media/ohno.png" data-weight="65" />
+        <img src="media/ohno.png" data-weight="140" />
+        <img src="media/ohno.png" data-weight="95" />
+        <img src="media/ohno.png" data-weight="75" />
+        <img src="media/ohno.png" data-weight="160" class="large" />
+        <img src="media/ohno.png" data-weight="85" />
+        <img src="media/ohno.png" data-weight="110" />
+        <img src="media/ohno.png" data-weight="55" />
+      </section>
+      <section class="text">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum explicabo
+          mollitia numquam optio eligendi. Illo, earum iste a rem nam, obcaecati
+          temporibus similique debitis consequatur inventore, accusantium quam
+          nobis tempora.
+        </p>
+        <p>
+          Fugit at placeat eveniet. Reiciendis libero iure repellat. Nobis
+          dolore veritatis ex, maxime perferendis tempore soluta. Laudantium,
+          non adipisci dolore aut ab quam amet nihil minima, corporis, quo
+          nesciunt quidem.
+        </p>
+        <p>
+          Aspernatur obcaecati mollitia ullam minus in doloribus non, rem
+          dolores. Delectus maiores sed quo nemo voluptatibus facere accusantium
+          est nulla aut, tempora nesciunt dolores ullam labore rem pariatur!
+          Voluptatum, voluptas.
+        </p>
+        <p>
+          Tenetur molestias delectus voluptatem quas labore voluptates
+          dignissimos? Nulla, tempora! Dicta aliquid magni suscipit voluptates
+          praesentium officia! Distinctio rem totam suscipit maiores voluptas
+          ducimus, vel et hic libero similique repellendus.
+        </p>
+        <p>
+          Eos, culpa accusamus aperiam soluta odit non in tempora assumenda
+          tenetur repellat quidem nisi dolores corrupti adipisci quis minus hic
+          rerum laborum ratione architecto. Sed consectetur tenetur illum amet
+          eum!
+        </p>
+        <p>
+          Ipsam recusandae iusto a quisquam nulla ratione accusantium nemo optio
+          repellat possimus autem perferendis, vero maiores officia eum
+          doloremque velit impedit alias, corporis voluptatum id aut dignissimos
+          fugiat vel! Molestiae.
+        </p>
+      </section>
+    </article>
+  </body>
+</html>
+
+<style>
+  .text {
+    font-family: monospace;
+    padding: 2em;
+    max-width: 65ch;
+    margin-inline: auto;
+  }
+
+  .grid {
+    padding-block: 2em;
+    padding-inline: 20vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 4vmin;
+  }
+
+  img {
+    width: 100%;
+    image-rendering: crisp-edges;
+    height: auto;
+    display: block;
+  }
+
+  img.large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+</style>
+
+<script>
+  // Claude Code
+  const items = document.querySelectorAll(".physical-items > *");
+
+  items.forEach((item) => {
+    const rotation = (Math.random() - 0.5) * 10;
+    item.style.transform = `rotate(${rotation}deg)`;
+    item.lag = 0;
+  });
+
+  let animating = false;
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+    const scrollDelta = currentScrollY - lastScrollY;
+
+    items.forEach((item) => {
+      const weight = parseFloat(item.dataset.weight);
+      const inertia =
+        scrollDelta * Math.abs(scrollDelta) * 0.01 * (80 / weight);
+      item.lag -= inertia;
+
+      if (Math.abs(item.lag) > 200) {
+        item.lag = Math.sign(item.lag) * 200;
+      }
+    });
+
+    lastScrollY = currentScrollY;
+
+    if (!animating) {
+      animating = true;
+      requestAnimationFrame(tick);
+    }
+  });
+
+  function tick() {
+    let stillMoving = false;
+
+    items.forEach((item) => {
+      item.lag *= 0.95;
+      item.style.translate = `0 ${item.lag}px`;
+      if (Math.abs(item.lag) > 0.1) stillMoving = true;
+    });
+
+    if (stillMoving) requestAnimationFrame(tick);
+    else animating = false;
+  }
+</script>
