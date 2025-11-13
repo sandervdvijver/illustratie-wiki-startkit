@@ -31,6 +31,7 @@ Live Server herlaadt je browser automatisch bij elke wijziging - ideaal voor web
 1. Zoek in het Extensions venster naar `Prettier` en installeer
 2. Open je settings met `Ctrl + ,` (Windows) of `Cmd + ,`(Mac)
 3. Zoek naar 'format on save' en activeer de checkbox
+4. Selecteer als 'default formatter' `Prettier`
 
 Deze extensie zet je code netjes wanneer je je bestand bewaart.
 
