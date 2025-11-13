@@ -57,4 +57,8 @@ In de `tools/` map vind je een tool om Wikipedia artikels om te zetten naar een 
 
 # Voorbeelden
 
-Ik voegde wat voorbeelden toe: de straight-edge pagina is een soort moodboard van wat kan (work in progress), de kolommen-en-flex pagina is een deep dive in dingen in kolommen zetten. Bezoek die nu al via [volgende link](https://raw.githack.com/sandervdvijver/illustratie-wiki-startkit/main/voorbeelden/kolommen-en-flex.html).
+Ik voegde wat voorbeelden toe:
+
+- de [straight-edge pagina](https://raw.githack.com/sandervdvijver/illustratie-wiki-startkit/main/voorbeelden/straight-edge.html) is een soort moodboard van wat kan.
+- de kolommen-en-flex pagina is een deep dive in dingen in kolommen zetten. Bezoek die via [volgende link](https://raw.githack.com/sandervdvijver/illustratie-wiki-startkit/main/voorbeelden/kolommen-en-flex.html).
+- de full-width overgangen check je via [deze link](https://raw.githack.com/sandervdvijver/illustratie-wiki-startkit/main/voorbeelden/full-width-overgangen.html).
