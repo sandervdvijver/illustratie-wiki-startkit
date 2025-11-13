@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Full width overgangen</title>
+  </head>
+
+  <body>
+    <article>
+      <div class="tussenbeeld" id="A"></div>
+      <section id="intro">
+        <div class="tekstblok">
+          <h3>Intro</h3>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum quos
+            error fugiat consequuntur nesciunt consectetur accusamus incidunt
+            voluptatem sint rem laborum nobis nostrum fugit beatae expedita,
+            ullam illum quidem earum.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
+            dicta numquam illo fugit molestias reiciendis? Fuga aliquam
+            excepturi et quibusdam voluptate autem voluptatum officia ipsam,
+            optio nisi temporibus rem suscipit?
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aut
+            libero fugit, similique tempore numquam adipisci quidem laboriosam
+            totam dignissimos voluptatum ea vitae quis obcaecati modi. Error
+            illo libero at.
+          </p>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit a
+            quidem maxime ipsum voluptates, iste obcaecati odio qui reiciendis
+            architecto aliquid eum, quos, voluptate natus commodi magnam
+            recusandae. Deserunt, illum.
+          </p>
+        </div>
+      </section>
+      <div class="tussenbeeld" id="B"></div>
+      <section id="tweede-deel">
+        <div class="tekstblok">
+          <h3>Tweede deel</h3>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum quos
+            error fugiat consequuntur nesciunt consectetur accusamus incidunt
+            voluptatem sint rem laborum nobis nostrum fugit beatae expedita,
+            ullam illum quidem earum.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
+            dicta numquam illo fugit molestias reiciendis? Fuga aliquam
+            excepturi et quibusdam voluptate autem voluptatum officia ipsam,
+            optio nisi temporibus rem suscipit?
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos,
+            dolores obcaecati corporis libero aperiam, nostrum hic quia
+            laboriosam id cumque error vero non! Totam, excepturi? Rerum itaque
+            dolore nesciunt perferendis!
+          </p>
+        </div>
+      </section>
+    </article>
+  </body>
+</html>
+
+<style>
+  html {
+    background: linear-gradient(
+      #4da28c 50%,
+      #283354 49%
+    ); /* Hacky achtergrond gradient om buiten de viewport dezelfde kleur te krijgen*/
+  }
+
+  body {
+    font-family: monospace;
+    background: linear-gradient(#283354 50%, #4da28c 49%);
+    margin: 0;
+    padding-top: 10vh; /* Extra marge bovenaan de pagina */
+    min-height: 100vh;
+  }
+
+  section {
+    padding: 20px;
+  }
+
+  .tekstblok {
+    max-width: 80ch; /* Max breedte 80 characters */
+    margin-inline: auto; /* Centreer dit blok */
+  }
+
+  #intro {
+    background-color: #dbdbdb;
+    color: rgb(29, 44, 57);
+  }
+
+  #tweede-deel {
+    background-color: #4da28c;
+    color: #211f5c;
+  }
+
+  /* Containers voor de afbeeldings-tussenstukken */
+  .tussenbeeld {
+    width: 100vw; /* 100% viewport width */
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: repeat-x;
+    margin-block: -2px; /* Klein beetje speling om pixel-lijntjes te vermijden */
+  }
+
+  .tussenbeeld#A {
+    background-image: url("media/achtergrond-A.png");
+    height: 51.5vw; /* (breedte gedeeld door hoogte (= ratio) maal 100 (= ratio in procent)) viewport width */
+  }
+
+  .tussenbeeld#B {
+    background-image: url("media/achtergrond-B.png");
+    height: 18vw; /* Idem als hierboven */
+  }
+
+  /* Als het scherm breder wordt dan 1200px … */
+  @media screen and (min-width: 1200px) {
+    .tussenbeeld#A {
+      height: 614px;
+      /* … leg je de hoogte vast, zodat deze niet verder blijft groeien.
+      Getal = de hoogte die de afbeelding zou hebben bij een breedte van 1200px (kan je checken in Photoshop) */
+    }
+    .tussenbeeld#B {
+      height: 216px;
+      /* Idem als hierboven */
+    }
+  }
+</style>
