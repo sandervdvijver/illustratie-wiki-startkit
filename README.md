@@ -22,7 +22,6 @@ Je installeert vervolgens nog één extensie om je leven iets eenvoudiger te mak
 
 1. Klik op het `Extensions` icoon in de zijbalk (of `Cmd + Shift + X`)
 2. Zoek naar `Live Server` van **Ritwick Dey** en installeer
-3. Rechtsklik op `index.html` → `Open with Live Server` om te starten
 
 Live Server herlaadt je browser automatisch bij elke wijziging - ideaal voor webontwikkeling.
 
@@ -56,10 +55,10 @@ In de `tools/` map vind je een tool om Wikipedia artikels om te zetten naar een 
 3. Kopieer de resulterende html en plak deze in de lege `index.html` file in de projectmap
 4. Open vervolgens deze `index.html` in je browser. Zie hier je startpunt!
 
-# Voorbeelden
+# Case studies
 
-Ik voegde wat voorbeelden toe:
+Ik voegde wat case studies toe:
 
 - de [straight-edge pagina](https://raw.githack.com/sandervdvijver/illustratie-wiki-startkit/main/voorbeelden/straight-edge.html) is een soort moodboard van wat kan.
 - de kolommen-en-flex pagina is een deep dive in dingen in kolommen zetten. Bezoek die via [volgende link](https://raw.githack.com/sandervdvijver/illustratie-wiki-startkit/main/voorbeelden/kolommen-en-flex.html).
-- de full-width overgangen check je via [deze link](https://raw.githack.com/sandervdvijver/illustratie-wiki-startkit/main/voorbeelden/full-width-overgangen.html).
+- de full-width overgangen check je via [deze link](https://raw.githack.com/sandervdvijver/illustratie-wiki-startkit/main/voorbeelden/full-width-overgangen.html). Vooral interessant als je full-bleed beelden wil gebruiken die waarvan de achtergrondkleuren doorlopen in je vormgeving.
