@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Horizontal Slide</title>
+
+    <!-- Swiper CSS en JS wordt via volgende links ingeladen van elders op het internet -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  </head>
+  <body>
+    <section class="tekstblok">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas voluptate
+        consectetur quos quidem corporis fugiat? Commodi fugit possimus dolorum
+        exercitationem, est explicabo animi ducimus numquam odit labore minima
+        vero incidunt?
+      </p>
+      <p>
+        Quasi recusandae, aperiam rem autem illum iusto cumque sequi minima sit
+        perferendis. At quis, quos tenetur deserunt nam voluptas, commodi, eum
+        reprehenderit corrupti aperiam voluptatem dolores. Ab quaerat temporibus
+        officiis!
+      </p>
+      <p>
+        Ipsam quos harum dolorum iusto atque, iure perspiciatis tempora voluptas
+        recusandae doloremque amet itaque quia numquam dolorem deleniti aut
+        repellendus sint optio consectetur omnis. Perferendis quisquam provident
+        itaque ad ducimus!
+      </p>
+      <p>
+        Fuga architecto nesciunt dignissimos tempore ad ipsum sunt, in sit
+        fugiat quis exercitationem quas inventore omnis consequatur eaque eum
+        minima corporis maiores. Iure vel ducimus reiciendis, unde similique
+        natus numquam!
+      </p>
+      <p>
+        Reprehenderit dolorum odit alias. Esse sequi odit veritatis maxime nam
+        voluptatibus atque voluptatum architecto exercitationem quidem dolorum
+        repudiandae, eos placeat itaque voluptatem omnis cum, debitis sunt quis!
+        Temporibus, voluptatum doloribus?
+      </p>
+      <p>
+        Cupiditate perspiciatis architecto, consequatur magni soluta eligendi!
+        Ullam quia earum obcaecati, voluptas inventore exercitationem
+        praesentium cupiditate facere tempore quas illo magni id et non quasi
+        nemo reiciendis molestias? Similique, maxime?
+      </p>
+    </section>
+
+    <!-- Swiper html element. Zie https://swiperjs.com/swiper-api -->
+    <section class="slideshow">
+      <div class="swiper-wrapper">
+        <img class="swiper-slide" src="media/mahe-1.png" alt="" />
+        <img class="swiper-slide" src="media/mahe-2.png" alt="" />
+        <img class="swiper-slide" src="media/mahe-3.png" alt="" />
+        <img class="swiper-slide" src="media/mahe-4.png" alt="" />
+        <img class="swiper-slide" src="media/mahe-5.png" alt="" />
+      </div>
+      <figcaption>Vincent Mahé's 750 Years in Paris</figcaption>
+    </section>
+
+    <section class="tekstblok">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas voluptate
+        consectetur quos quidem corporis fugiat? Commodi fugit possimus dolorum
+        exercitationem, est explicabo animi ducimus numquam odit labore minima
+        vero incidunt?
+      </p>
+      <p>
+        Quasi recusandae, aperiam rem autem illum iusto cumque sequi minima sit
+        perferendis. At quis, quos tenetur deserunt nam voluptas, commodi, eum
+        reprehenderit corrupti aperiam voluptatem dolores. Ab quaerat temporibus
+        officiis!
+      </p>
+      <p>
+        Ipsam quos harum dolorum iusto atque, iure perspiciatis tempora voluptas
+        recusandae doloremque amet itaque quia numquam dolorem deleniti aut
+        repellendus sint optio consectetur omnis. Perferendis quisquam provident
+        itaque ad ducimus!
+      </p>
+      <p>
+        Fuga architecto nesciunt dignissimos tempore ad ipsum sunt, in sit
+        fugiat quis exercitationem quas inventore omnis consequatur eaque eum
+        minima corporis maiores. Iure vel ducimus reiciendis, unde similique
+        natus numquam!
+      </p>
+      <p>
+        Reprehenderit dolorum odit alias. Esse sequi odit veritatis maxime nam
+        voluptatibus atque voluptatum architecto exercitationem quidem dolorum
+        repudiandae, eos placeat itaque voluptatem omnis cum, debitis sunt quis!
+        Temporibus, voluptatum doloribus?
+      </p>
+      <p>
+        Cupiditate perspiciatis architecto, consequatur magni soluta eligendi!
+        Ullam quia earum obcaecati, voluptas inventore exercitationem
+        praesentium cupiditate facere tempore quas illo magni id et non quasi
+        nemo reiciendis molestias? Similique, maxime?
+      </p>
+    </section>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 20px;
+    font-family: monospace;
+  }
+
+  .tekstblok {
+    max-width: 65ch;
+    margin-inline: auto;
+  }
+
+  figcaption {
+    text-align: center;
+    opacity: 0.5;
+    font-style: italic;
+    font-size: smaller;
+    margin-bottom: 1em;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .swiper {
+    /* Negatieve marge links en rechts om mooi tot aan de rand te komen */
+    margin-inline: -20px;
+  }
+</style>
+
+<!-- In de script tag hieronder wordt de swiper slideshow geïnitialiseerd -->
+<script>
+  const gebouwenSlide = new Swiper(".slideshow", {
+    // Instellingen. Voor een volledig overzicht: https://swiperjs.com/swiper-api#parameters
+    loop: true,
+    autoplay: true,
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+    },
+    slidesPerView: 1,
+    breakpoints: {
+      // Als scherm x breed is, toon dan y slides naast elkaar
+      480: { slidesPerView: 2 },
+      560: { slidesPerView: 3 },
+      1000: { slidesPerView: 4 },
+    },
+  });
+</script>
