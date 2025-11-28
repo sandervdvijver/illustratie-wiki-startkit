@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/sunny-helpers/_debug.css">
+  <script src="js/debug.js"></script>
+</head>
+
+<body>
+  <section>
+    <h1>Grids</h1>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat consequatur, beatae nostrum soluta iusto, error
+      omnis consequuntur voluptatem adipisci quo vel molestias unde nihil eaque repellendus neque earum blanditiis
+      ipsam!
+    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores nulla quasi sapiente delectus eum vel et,
+      facilis unde, nam consectetur sint maiores, voluptas a officiis architecto veniam repellat reprehenderit atque?
+    </p>
+  </section>
+  <section class="grid breed">
+    <div class="dubbel" style="--bg-color: salmon;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente,
+      libero non? Excepturi
+      perferendis
+      doloremque sed tenetur eaque nemo sint rem magnam facilis, tempore animi distinctio, minus corporis vero eius
+      dignissimos.
+    </div>
+    <div><img src="media/history-2.jpg" alt=""><span>Onderschrift</span></div>
+    <div style="--bg-color: rgb(115, 158, 238);">Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Sapiente,
+      libero non? Excepturi
+      perferendis
+      doloremque sed tenetur eaque nemo sint rem magnam facilis, tempore animi distinctio, minus corporis vero eius
+      dignissimos.
+    </div>
+    <div style="--bg-color: rgb(196, 203, 169);"><img src="media/history-3.jpg" alt=""><span>Ander onderschrift</span>
+    </div>
+    <div style="--bg-color: rgb(120, 160, 111);"><img src="media/history-4.jpg" alt=""><span>Nog een caption</span>
+    </div>
+  </section>
+  <section>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur repellat eligendi ratione adipisci et
+      placeat commodi inventore optio repudiandae qui dolorum mollitia, eius voluptatibus, dicta doloremque perferendis
+      quidem. Eius, aut!</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque dolores, architecto hic similique praesentium
+      officiis sapiente vel eum, consequatur aperiam quod facere beatae alias, nostrum ipsum ipsam obcaecati. Tempora,
+      dignissimos.</p>
+  </section>
+</body>
+
+</html>
+
+<style>
+  body {
+    font-family: monospace;
+    margin: 1.5em;
+  }
+
+  section {
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  section+section {
+    margin-top: 1.5em;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    mix-blend-mode: multiply;
+    display: block;
+  }
+
+  .breed {
+    max-width: 800px;
+  }
+
+  .grid {
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+  }
+
+  @media (max-width: 800px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .grid>* {
+    --bg-color: lightslategray;
+    padding: 1.5em;
+    background-color: var(--bg-color);
+    display: flex;
+    cursor: pointer;
+    transition: background-color .1s ease;
+
+    &:hover {
+      background-color: lightblue;
+    }
+  }
+
+  .grid>*>* {
+    align-self: center;
+  }
+
+  .grid>.dubbel {
+    grid-column: span 2;
+  }
+
+  div {
+    position: relative;
+  }
+
+  div:has(img):hover img+span {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  div>img+span {
+    font-size: x-small;
+    opacity: 0;
+    transform: translateY(1em);
+    transition: transform .1s ease, opacity .05s ease;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    bottom: .75em;
+  }
+</style>
